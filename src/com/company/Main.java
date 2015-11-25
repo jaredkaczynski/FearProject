@@ -18,7 +18,8 @@ public class Main {
                 while (in.hasNextLine()) {
                     String line = in.nextLine();
                     Scanner lineScanner = new Scanner(line);
-                    String word = lineScanner.next();
+                    String word;
+                    while(lineScanner.hasNext()){
                     int i = 0;
                     while (Character.isDigit(line.charAt(i))) {
                         while (Character.isDigit(line.charAt(i+1))) {
@@ -35,6 +36,8 @@ public class Main {
                         if (counter >= 3) {
                             out.println(ipAddress);
                         }
+                    }
+                    word = lineScanner.next();
                     }
                     lineScanner.close();
                 }
