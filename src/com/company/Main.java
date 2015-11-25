@@ -15,30 +15,37 @@ public class Main {
                 Scanner in = new Scanner(inputFile);
                 PrintWriter out = new PrintWriter("ban.txt");
                 int counter = 0;
+                int i = 0;
                 while (in.hasNextLine()) {
                     String line = in.nextLine();
                     Scanner lineScanner = new Scanner(line);
                     String word;
-                    while(lineScanner.hasNext()){
-                    int i = 0;
-                    while (Character.isDigit(line.charAt(i))) {
-                        while (Character.isDigit(line.charAt(i+1))) {
-                            while (Character.isDigit(line.charAt(i+2))) {
+                    //while(lineScanner.hasNext()){
+                    //word = lineScanner.next();
+
+                    while (!Character.isDigit(line.charAt(i))) {
+                        while (!Character.isDigit(line.charAt(i+1))) {
+                            while (!Character.isDigit(line.charAt(i+2))) {
                                 while (line.charAt(i+3) != '.') {
                                     i++;
                                 }
                             }
                         }
                         String ipAddress = line.substring(i, i+13);
-                        if (word.equals("Invalid")) {
-                            counter++;
+                        while(lineScanner.hasNext()){
+                            word = lineScanner.next();
+                            if (word.equals("Invalid")) {
+                                counter++;
+                            }
                         }
+
                         if (counter >= 3) {
                             out.println(ipAddress);
                         }
+                        //i++;
                     }
-                    word = lineScanner.next();
-                    }
+
+                    //}
                     lineScanner.close();
                 }
                 in.close();
