@@ -3,6 +3,8 @@ package com.company;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -11,11 +13,14 @@ public class Main {
         if (args.length > 0) {
             try
             {
+                ArrayList<String> IPArray = new ArrayList<String>();;
+                ArrayList<Integer> countArray = new ArrayList<Integer>();
+
                 File inputFile = new File(args[0]);
                 Scanner in = new Scanner(inputFile);
                 PrintWriter out = new PrintWriter("ban.txt");
                 int counter = 0;
-
+                String startIP;
                 while (in.hasNextLine()) {
                     int i = 0;
                     String line = in.nextLine();
@@ -45,18 +50,29 @@ public class Main {
                         while(lineScanner.hasNext()){
                             word = lineScanner.next();
                             if (word.equals("Invalid")) {
-                                counter++;
+                                if(IPArray.contains(ipAddress)) {
+                                int index = IPArray.indexOf(ipAddress);
+                                    countArray.set(index,countArray.get(index).intValue()+1);
+                                } else {
+                                    IPArray.add(ipAddress);
+                                    countArray.add(1);
+                                }
                             }
                         }
 
-                        if (counter >= 3) {
+                        /*if (counter >= 3) {
                             out.println(ipAddress);
-                        }
+                        }*/
                         //i++;
                     }
 
                     //}
                     lineScanner.close();
+                }
+                for(Integer s: countArray){
+                    if(s>=3){
+                        out.println(IPArray.get(countArray.indexOf(s)));
+                    }
                 }
                 in.close();
                 out.close();
